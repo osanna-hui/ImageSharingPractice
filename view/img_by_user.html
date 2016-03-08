@@ -1,0 +1,12 @@
+
+<div id="display" ng-controller='UserImgControl'>
+    <h1>Images Uploaded By User</h1>
+    <div class="img_display" ng-repeat='img in imgs'>
+        <img src="img/{{img.img_url}}"/><br/>
+        <label>Title: </label><input id="new_title_{{img.img_id}}" value="{{img.img_title}}"/><br/>
+        <label>Description: </label><input id="new_desc_{{img.img_id}}" value="{{img.img_desc}}"/><br/>
+        <button class="update" ng-click="update(img.img_id)">EDIT Title & Description!</button>
+        <button class="delete" ng-click="delete(img.img_id)">DELETE THIS IMAGE!</button>
+
+    </div>
+</div>

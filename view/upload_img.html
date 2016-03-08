@@ -1,0 +1,81 @@
+
+<h1>Upload An Image!</h1>
+<input id="myFiles" type="file" placeholder="YOUR IMAGE"/>
+<input id="img_title" type="text" placeholder="YOUR IMAGE TITLE"/>
+<input id="desc" type="text" placeholder="YOUR IMAGE DESCRIPTION"/>
+<button id="upload">UPLOAD IMAGE</button>
+
+<script>
+
+    var myfiles = document.getElementById("myFiles");
+    var upload = document.getElementById("upload");
+    
+    upload.onclick = function(e){
+        e.preventDefault();
+
+        console.log(sessionStorage.myid);
+        var formData = new FormData();
+        
+        var allFiles = myfiles.files;
+        
+        for (var i = 0; i<allFiles.length; i++){
+            var file = allFiles[i];
+            
+            //check for image filetypes
+            if(file.type.match("image/*")){
+                //this get stored in the FILES container
+                formData.append("images[]", file, file.name);
+                //this get stored in the GET or POST container
+                formData.append ("userid", sessionStorage.myid);
+            } else {
+                alert("IMAGE ONLY!!!");
+                return false;
+            }
+            
+        }
+        
+        //I want to do an asynchronous call
+        //it's a manual ajax call
+        var xhr = new XMLHttpRequest();
+        
+        // what time of container, to what file, whether it's a true async call
+        xhr.open("POST", "upload.php", true);
+        
+        xhr.onload = function(){
+            if(xhr.status == 200){
+                alert("Loaded upload.php successfully");
+            }
+            if(xhr.status == 404){
+                alert("Page Not Found!");
+            }
+        }
+        
+        xhr.send(formData);
+        
+        console.log(myfiles.files);
+        console.log(myfiles.files[0].name);
+
+        $(document).ready(function(){
+            console.log("title: " + document.getElementById("img_title").value);
+            console.log("desc: " + document.getElementById("desc").value);
+            $.ajax({
+                url:"cont/img_c.php",
+                type:"POST",
+                dataType:"JSON",
+                data:{
+                    method:"insert_img",
+                    title:document.getElementById("img_title").value,
+                    desc:document.getElementById("desc").value,
+                    user_id:sessionStorage.myid,
+                    img_url:myfiles.files[0].name
+                },
+                success:function(resp){
+                    console.log("uploaded");
+                }
+            });
+        });
+
+    }
+    
+    
+</script>

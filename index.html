@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html ng-app="ImageSharing">
+    <head>
+        <meta charset="UTF-8"/>
+        <title>Final Assignment - with Routing</title>
+        <link rel="stylesheet" type="text/css" href="./css/style.css"/>
+        <base href="/MDIA3109/v3/" />
+
+    </head>
+    <body>
+        <h1 id="title">Share Your Images!</h1>
+
+        <ul>
+            <li><a href="all_img_title">view all image titles</a></li>
+            <li><a href="users">signup or login</a></li>
+            <li><a href="upload_img">upload an image</a></li>
+            <li><a href="all_img">view all images</a></li>
+            <li><a href="img_by_user">view your images</a></li>
+            <li><a href="user_comment">view your comments</a></li>
+        </ul>
+
+        <div ng-view></div>
+
+
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+        <script src="js/angular.min.js"></script>
+        <script src="js/angular-route.js"></script>
+        <script src="js/myapp.js"></script>
+        <script src="js/controller.js"></script>
+    </body>
+</html>

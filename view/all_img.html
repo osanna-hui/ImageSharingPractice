@@ -1,0 +1,21 @@
+
+<div id="display" ng-controller='AllImgControl'>
+    <h1>All Images</h1>
+    <div class="img_display" ng-repeat='img in imgs'>
+        <img src="img/{{img.img_url}}"/><br/>
+        <h2 id="img_title" >Title: {{img.img_title}}</h2><br/>
+        <span id="img_desc" >Desc: {{img.img_desc}}</span><br/>
+        <h3 id="uploaded_by">Uploaded By: {{img.username}}</h3>
+        <input id="{{img.img_id}}" placeholder="Insert Comment"/>
+        <button id="comment_sub" ng-click="comment(img.img_id)">SUBMIT!</button>
+    </div>
+</div>
+
+
+<script>
+
+
+///////////////////ANGULAR JS///////////////////
+
+</script>
+

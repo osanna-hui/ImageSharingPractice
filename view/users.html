@@ -1,0 +1,93 @@
+
+<input type="text" id="username" placeholder="username" autofocus required/>
+<input type="password" id="password" placeholder="password" required />
+<button id="register">REGISTER</button>
+<button id="login">LOGIN</button>
+
+<div>
+    <div id="profile">
+        
+    </div>
+    <div id="changePW_div">
+        <input id="newPW" type="password" placeholder="YOUR NEW PASSWORD"/>
+        <button id="newPW_sub">SUBMIT NEW PASSWORD</button>
+    </div> 
+
+</div>
+
+<script>
+    $(document).ready(function(){
+        document.getElementById("register").onclick = function(){
+            $.ajax({
+               url:"cont/users_c.php",
+                dataType:"html",
+                type:"POST",
+                data:{
+                    method:"register",
+                    username:document.getElementById("username").value,
+                    password:document.getElementById("password").value
+                },
+                success:function(resp){
+                    //console.log(resp);
+                    alert("USER CREATED!");
+                }
+            });
+        }
+
+        document.getElementById("login").onclick = function(){
+            $.ajax({
+               url:"cont/users_c.php",
+                dataType:"json",
+                type:"POST",
+                data:{
+                    method:"login",
+                    username:document.getElementById("username").value,
+                    password:document.getElementById("password").value
+                },
+                success:function(resp){
+                    //console.log(resp);
+                    console.log("Want to Login?!");
+
+                    console.log(resp);
+                    sessionStorage.myid = resp[0].user_id;
+                    
+                    var username = document.createElement("h1");
+                    username.innerHTML = "Welcome Back! "+ resp[0].username;
+                    document.getElementById("profile").appendChild(username);
+                    var changePW = document.createElement("button");
+                    changePW.innerHTML = "Want to Change Your Password?";
+                    document.getElementById("profile").appendChild(changePW);
+
+
+                    changePW.onclick = function(){
+                        document.getElementById("changePW_div").style.display = "block";
+                        console.log(resp[0].user_id);
+                        document.getElementById("newPW_sub").onclick = function(){
+                            $.ajax({
+                                url:"cont/users_c.php",
+                                dataType:"JSON",
+                                type:"POST",
+                                data:{
+                                    method:"updatePW",
+                                    user_id:resp[0].user_id,
+                                    password:document.getElementById("newPW").value
+                                },
+                                success:function(){
+                                    location.reload();
+                                    alert("better remember your new password!");
+                                }
+
+                            });
+                        }
+                    }
+                
+
+                }
+            });
+        }
+        
+    });
+    
+        
+    
+</script>

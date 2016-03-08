@@ -1,0 +1,17 @@
+
+<div id="display" ng-controller='UserCommentsControl'>
+    <h1>User's Comments</h1>
+    <div ng-repeat="comment in comments">
+        <div class="comments" id="comment_{{comment.com_id}}">
+            <span><strong>Image: </strong>{{comment.img_title}}</span><br/>
+            <span><strong>Comment: </strong>{{comment.msg}}</span><br/>
+            <button class="edit" id="{{comment.com_id}}">Edit Comment</button><button ng-click="delete(comment.com_id)">Delete Comment</button>
+        </div>
+    </div>
+    
+</div>
+
+<script>
+///////////////////ANGULAR JS///////////////////
+
+</script>
